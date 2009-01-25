@@ -1,4 +1,4 @@
-<h2>Add Repository</h2>
+<h2>Add User</h2>
 
 <?= validation_errors(); ?>
 
