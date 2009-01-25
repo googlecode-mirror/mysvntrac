@@ -1,13 +1,18 @@
 <h2>Users</h2>
 
-<ul>
-	<li><?= anchor('users/add', 'Add') ?></li>
+<ul class="options">
+	<li><?= anchor('users/add', 'Add User', array('class'=>'icon_link add_user')) ?></li>
 </ul>
 
 <table>
+<thead>
+	<th>Username</th>
+    <th>Groups</th>
+</thead>
 <? foreach ($users as $user): ?>
-    <tr>
+    <tr class="<?=alternator('odd', 'even')?>">
     	<td><?= $user['username'] ?></td>
+        <td>&nbsp;</td>
     </tr>
 <? endforeach ?>
 </table>
