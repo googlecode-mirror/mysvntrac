@@ -54,6 +54,10 @@ class Repositories extends Controller {
 	function remove()
 	{
 	}
+	
+	function edit()
+	{
+	}
 
 }
 
