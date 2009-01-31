@@ -28,7 +28,7 @@ class Repositories extends Controller {
 		$this->load->helper(array('form'));
 		$this->load->library('form_validation');
 			
-		$this->form_validation->set_rules('name', 'Name', 'trim|required|alpha_numeric');
+		$this->form_validation->set_rules('name', 'Name', 'trim|required|alpha_dash');
 			
 		if ($this->form_validation->run() == FALSE)
 		{

@@ -12,7 +12,7 @@
 <? foreach ($users as $user): ?>
     <tr class="<?=alternator('odd', 'even')?>">
     	<td><?= $user['username'] ?></td>
-        <td>&nbsp;</td>
+        <td><?= implode(", ", $user['groups']) ?></td>
     </tr>
 <? endforeach ?>
 </table>

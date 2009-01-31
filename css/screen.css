@@ -95,12 +95,27 @@ td, th {
 .remove_repository { background: url(../images/package_delete.png); }
 .add_user { background: url(../images/user_add.png); }
 .remove_user { background: url(../images/user_delete.png); }
+.add_group { background: url(../images/group_add.png); }
+.remove_group { background: url(../images/group_delete.png); }
 
 .icon_link {
 	background-repeat: no-repeat;
 	background-position: center left;
 	padding-left: 22px;
 	text-decoration: none;
+}
+
+tr:hover {
+	background-color: #00aeea;
+	color: white;
+}
+
+td .icon_link {
+	display: block;
+	float: left;
+	height: 16px;
+	overflow: hidden;
+	width: 0px;
 }
 
 a, a:link, a:visited {

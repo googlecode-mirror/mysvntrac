@@ -15,6 +15,7 @@
     <ul id="nav">
         <li><?= anchor('repositories', 'Repositories') ?></li>
         <li><?= anchor('users', 'Users') ?></li>
+        <li><?= anchor('groups', 'Groups') ?></li>
     </ul>
 </div>
 
