@@ -29,7 +29,7 @@ class Users extends Controller {
 		$this->load->helper(array('form'));
 		$this->load->library('form_validation');
 			
-		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|alpha_dash');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 			
 		if ($this->form_validation->run() == FALSE)
@@ -53,7 +53,7 @@ class Users extends Controller {
 	
 	function groups()
 	{
-		$this->mysvn->parse_authz_file();
+		print_r($this->mysvn->parse_authz_file());
 	}
 	
 	function test()
@@ -111,7 +111,7 @@ class Users extends Controller {
 		}
 		
 		
-		//print_r($authz_array);
+		print_r($authz_array);
 								
 		
 	}
