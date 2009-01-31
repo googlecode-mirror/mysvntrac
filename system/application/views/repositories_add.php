@@ -1,5 +1,9 @@
 <h2>Add Repository</h2>
 
+<ul class="options">
+	<li><?= anchor('repositories', 'Back', array('class'=>'icon_link back')) ?></li>
+</ul>
+
 <?= validation_errors(); ?>
 
 <?= form_open('repositories/add') ?>

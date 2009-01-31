@@ -1,4 +1,8 @@
-<h2>Add User</h2>
+<h2>Users</h2>
+
+<ul class="options">
+	<li><?= anchor('users', 'Back', array('class'=>'icon_link back')) ?></li>
+</ul>
 
 <?= validation_errors(); ?>
 

@@ -16,7 +16,7 @@
     	<td><?= anchor('repositories/edit/'.$repository, $repository) ?></td>
         <td><?= anchor($this->config->item('server').'svn/'.$repository) ?></td>
         <td><?= anchor($this->config->item('server').'trac/'.$repository) ?></td>
-        <td>&nbsp;</td>
+        <td><?= anchor('repositories/remove/'.$repository, 'Remove', array('class'=>'icon_link remove_repository')) ?></td>
     </tr>
 <? endforeach ?>
 </table>
