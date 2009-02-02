@@ -1,3 +1,7 @@
+ * Install auth-mysql-mod
+ * Add auth_mysql.conf with 'Auth_MySQL_Info localhost root root'
+ * Configure apache conf
+
 {{{
 <Location /mysvn>
 	AuthBasicAuthoritative Off
