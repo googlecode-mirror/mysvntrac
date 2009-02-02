@@ -1,5 +1,3 @@
-==Apache config file==
-
 {{{
 <Location /mysvn>
 	AuthBasicAuthoritative Off
