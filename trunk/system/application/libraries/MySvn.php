@@ -5,12 +5,12 @@ class MySvn {
 	var $CI;
 
 	function MySvn()
-	{		
+	{
 		$this->CI =& get_instance();
 		$this->CI->config->load('mysvn');
 		log_message('debug', "MySvn Class Initialized");
 	}
-	
+
 	function get_users()
 	{
 		$this->CI->config->load('mysvn');
@@ -20,19 +20,19 @@ class MySvn {
 		for ($i = 0; $i < $count; $i++)
 		{
 			list($username, $password) = explode(':', $htpasswd_file[$i]);
-			
-			$authz = $this->parse_authz_file();			
+
+			$authz = $this->parse_authz_file();
 			$groups = array();
 			foreach($authz['groups'] as $group => $members) {
-				if (in_array($username, $members)) $groups[] = $group;					
-			}  
-			
+				if (in_array($username, $members)) $groups[] = $group;
+			}
+
 			$users[] = array("username" => $username, "password" => $password, "groups" => $groups);
 		}
 		log_message('debug', "Retrieved Users From Htpasswd File");
 		return $users;
 	}
-	
+
 	function add_user($username, $password)
 	{
 		$data = $username.":".$this->_htpasswd($password)."\n";
@@ -41,7 +41,7 @@ class MySvn {
 			if (!$handle = fopen($htpasswd_file, 'a')) {
 				log_message('debug', "Cannot Open Htpasswd File: ".$htpasswd_file);
 				exit;
-			}	
+			}
 			if (fwrite($handle, $data) === FALSE) {
 				log_message('debug', "Cannot Write To Htpasswd File: ".$htpasswd_file);
 				exit;
@@ -52,18 +52,18 @@ class MySvn {
 			log_message('debug', "Non Writable Htpasswd File: ".$htpasswd_file);
 		}
 	}
-	
+
 	function _htpasswd($password)
 	{
 		$password = crypt(trim($password),base64_encode(CRYPT_STD_DES));
 		return $password;
 	}
 
-	function remove_user($username) 
+	function remove_user($username)
 	{
 		$htpasswd_file = file($this->CI->config->item('htpasswd_file'));
 		$pattern = "/". $username."/";
-		
+
 		foreach ($htpasswd_file as $key => $value) {
 			if(preg_match($pattern, $value)) { $line = $key;  }
 		}
@@ -79,7 +79,7 @@ class MySvn {
 			fclose($fp);
 		}
 	}
-	
+
 	function get_groups()
 	{
 		$authz = $this->parse_authz_file();
@@ -90,40 +90,40 @@ class MySvn {
 			return array();
 		}
 */	}
-	
+
 	function parse_authz_file()
 	{
-		
+
 		$authz_file = file_get_contents($this->CI->config->item('authz_file'));
-		$authz = preg_split("/\[/", $authz_file,-1,PREG_SPLIT_NO_EMPTY);			
+		$authz = preg_split("/\[/", $authz_file,-1,PREG_SPLIT_NO_EMPTY);
 		$authz_array = array();
-		
+
 		foreach ($authz as $block) {
-			
+
 			$parts = split("\]\n", $block);
 			$lines = split("\n", $parts[1]);
-			
+
 			foreach($lines as $line)
 			{
 				if ($line != '') {
-					
+
 					$ps = explode("=", $line);
-					
+
 					$nm = explode(",", $ps[1]);
 					array_walk($nm, array($this, '_trim_val'));
-					
+
 					$authz_array[ $parts[0] ][ trim($ps[0]) ] = $nm;
 				}
-			}	
+			}
 		}
 		return $authz_array;
 	}
-	
+
 	function _trim_val(&$val)
 	{
 		$val = trim($val);
 	}
-	
+
 	function get_repositories()
 	{
 		$this->CI->load->helper('directory');
@@ -131,7 +131,7 @@ class MySvn {
 		log_message('debug', "Retrieved Repositories");
 		return $repositories == null ? array() : $repositories;
 	}
-	
+
 	function add_repository($name)
 	{
 		$svn_dir = $this->CI->config->item('svn_dir');
@@ -140,13 +140,14 @@ class MySvn {
 		log_message('debug', "Create Svn Repository: ".$return);
 		$trac_dir = $this->CI->config->item('trac_dir');
 		if ($this->CI->config->item('is_trac_pre_0_9')) {
-			$line2 = exec("trac-admin $trac_dir/$name initenv '$name' $svn_dir/$name", $return);
+			$trac_templates_dir = $this->CI->config->item('trac_templates_dir');
+			$line2 = exec("trac-admin $trac_dir/$name initenv '$name' sqlite:db/trac.db $svn_dir/$name $trac_templates_dir", $return);
 		} else {
 			$line2 = exec("trac-admin $trac_dir/$name initenv '$name' sqlite:db/trac.db svn $svn_dir/$name", $return);
 		}
 		log_message('debug', "Create Trac Environment: ".$return);
 	}
-	
+
 	function remove_repository($name)
 	{
 		exec('rm -r '.$this->CI->config->item('svn_dir')."/".$name, $return);
@@ -156,6 +157,6 @@ class MySvn {
 	}
 
 }
-	
+
 /* End of file MySvn.php */
 /* Location: ./system/libraries/MySvn.php */
