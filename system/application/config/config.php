@@ -11,7 +11,7 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://mysvn/mysvn/";
+$config['base_url']	= "http://192.168.0.140/mysvn/";
 
 /*
 |--------------------------------------------------------------------------
