@@ -141,7 +141,7 @@ class MySvn {
 		$trac_dir = $this->CI->config->item('trac_dir');
 		if ($this->CI->config->item('is_trac_pre_0_9')) {
 			$trac_templates_dir = $this->CI->config->item('trac_templates_dir');
-			$line2 = exec("trac-admin $trac_dir/$name initenv '$name' sqlite:db/trac.db $svn_dir/$name $trac_templates_dir", $return);
+			$line2 = exec("trac-admin $trac_dir/$name initenv '$name' sqlite:db/trac.db svn $svn_dir/$name $trac_templates_dir", $return);
 		} else {
 			$line2 = exec("trac-admin $trac_dir/$name initenv '$name' sqlite:db/trac.db svn $svn_dir/$name", $return);
 		}
